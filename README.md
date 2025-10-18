@@ -36,7 +36,7 @@ The codebase centralizes date-related operations with dedicated utility function
 
 The application implements a comprehensive color management system 
 
-Dsign patterns such as  D.R.Y, KISS, SOLID was implemented
+Dsign patterns such as  D.R.Y, KISS was implemented
 
 Docker containerization for consistent deployment.
 
