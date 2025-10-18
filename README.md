@@ -1,73 +1,46 @@
-# React + TypeScript + Vite
+The application was developed with React JS and Typescript with MVVM Architecture.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Models handle data fetching/transformation, ViewModels (custom hooks) manage state and business logic, and Views/Components handle UI. 
 
-Currently, two official plugins are available:
+For styling and responsiveness I used tailwind CSS, which is responsive by default with breakpoints for multiple screen sizes.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+For Multi-Source API Fetching, I used Promise.allSettled for Graceful Degradation: 
 
-## React Compiler
+Parallel over Sequential calls - All 6 API calls fire simultaneously (4 NewsAPI categories + Guardian + NYT), drastically reducing load time compared to sequential awaits. I used allSettled not all Promise.allSettled() continues even if some APIs fail, unlike Promise.all() which would abort on first failure. I only display error on total failure.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+On the Home page, there is 2 tabs: "All Articles" - Shows everything from all news sources, For You" - Shows only articles matching your interests.
 
-## Expanding the ESLint configuration
+Personalized news feed by selecting preferred sources, categories, and authors.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Generic API Utility Pattern
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+The codebase has a centralized fetchAPI utility that handles all HTTP requests. Instead of having repetitive fetch/error-handling code scattered across multiple service files.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Date Operations Library 
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Multi-Stage Filtering Pipeline
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Personalization (if "For You" mode) → Filter by preferences
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Search Query → Match title/description/author
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Source Filter → NewsAPI, Guardian, or NYT
+
+Category Filter → Business, Sports, etc.
+
+Set Preferences → Saved to localStorage (persists across sessions)
+
+Results Update → Automatically via React's reactive system
+
+The codebase centralizes date-related operations with dedicated utility functions 
+
+The application implements a comprehensive color management system 
+
+Dsign patterns such as  D.R.Y, KISS, SOLID was implemented
+
+Docker containerization for consistent deployment.
+
+
+
+
+

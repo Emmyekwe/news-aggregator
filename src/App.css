@@ -1,42 +1,41 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import "tailwindcss";
+
+@theme {
+  /* Primary Colors */
+  --color-primary: #000000;
+  --color-primary-hover: #1a1a1a;
+  
+  /* Secondary Colors */
+  --color-secondary: #2563eb;
+  --color-secondary-hover: #1d4ed8;
+  
+  /* Accent Colors */
+  --color-accent: #062659;
+  --color-accent-light: #c2e8ff;
+  
+  /* Background Colors */
+  --color-bg-main: #f0f2f5;
+  --color-bg-white: #ffffff;
+  --color-bg-hover: #c2e8ff;
+  --color-bg-dark: #010d1b;
+  
+  /* Text Colors */
+  --color-text-primary: #000000;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #9ca3af;
+  --color-text-white: #ffffff;
+  
+  /* Border Colors */
+  --color-border: #e5e7eb;
+  --color-border-hover: #d1d5db;
+  
+  /* Status Colors */
+  --color-error: #ef4444;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+body {
+  font-family: 'Montserrat', sans-serif;
 }
