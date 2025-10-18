@@ -1,46 +1,96 @@
-The application was developed with React JS and Typescript with MVVM Architecture.
+# News Aggregator
 
-Models handle data fetching/transformation, ViewModels (custom hooks) manage state and business logic, and Views/Components handle UI. 
+A modern news aggregator application built with React, TypeScript, and Vite that consolidates news from multiple trusted sources into a single, personalized feed.
 
-For styling and responsiveness I used tailwind CSS, which is responsive by default with breakpoints for multiple screen sizes.
+## Features
 
-For Multi-Source API Fetching, I used Promise.allSettled for Graceful Degradation: 
+- **Multi-Source News Aggregation**: Fetches articles from NewsAPI, The Guardian, and The New York Times
+- **Advanced Filtering**: Filter news by source, category, date range, and search terms
+- **Personalization**: Save your preferred sources, categories, and authors for a customized experience
+- **Two View Modes**:
+  - **All Articles**: Browse all available news
+  - **For You**: Personalized feed based on your preferences
+- **Pagination**: Easy navigation through large numbers of articles (20 per page)
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Modern UI**: Built with Tailwind CSS for a clean, contemporary interface
 
-Parallel over Sequential calls - All 6 API calls fire simultaneously (4 NewsAPI categories + Guardian + NYT), drastically reducing load time compared to sequential awaits. I used allSettled not all Promise.allSettled() continues even if some APIs fail, unlike Promise.all() which would abort on first failure. I only display error on total failure.
+## Tech Stack
 
-On the Home page, there is 2 tabs: "All Articles" - Shows everything from all news sources, For You" - Shows only articles matching your interests.
+- **Frontend**: React 19 with TypeScript
+- **Build Tool**: Vite 7
+- **Styling**: Tailwind CSS 4
+- **Routing**: React Router Dom 7
+- **Icons**: React Icons
+- **Architecture**: MVVM pattern with custom hooks
 
-Personalized news feed by selecting preferred sources, categories, and authors.
+## Running with Docker
 
-Generic API Utility Pattern
+### Prerequisites
 
-The codebase has a centralized fetchAPI utility that handles all HTTP requests. Instead of having repetitive fetch/error-handling code scattered across multiple service files.
+- Docker and Docker Compose installed on your machine
 
-Date Operations Library 
+### Quick Start
 
-Multi-Stage Filtering Pipeline
+1. Build and start the application:
+```bash
+docker compose up --build
+```
 
-Personalization (if "For You" mode) → Filter by preferences
+2. Open your browser and navigate to:
+```
+http://localhost:5173
+```
 
-Search Query → Match title/description/author
+3. To stop the application:
+```bash
+# Press Ctrl+C in the terminal, then run:
+docker compose down
+```
 
-Source Filter → NewsAPI, Guardian, or NYT
+### Alternative: Using Docker Run
 
-Category Filter → Business, Sports, etc.
+If you prefer to use `docker run` directly:
 
-Set Preferences → Saved to localStorage (persists across sessions)
+1. Build the Docker image:
+```bash
+docker build -t newsaggregator .
+```
 
-Results Update → Automatically via React's reactive system
+2. Run the container:
+```bash
+docker run -p 5173:5173 -v "$(pwd):/app" -v /app/node_modules newsaggregator
+```
 
-The codebase centralizes date-related operations with dedicated utility functions 
+## Running Locally (Without Docker)
 
-The application implements a comprehensive color management system 
+1. Install dependencies:
+```bash
+npm install
+```
 
-Dsign patterns such as  D.R.Y, KISS was implemented
+2. Start the development server:
+```bash
+npm run dev
+```
 
-Docker containerization for consistent deployment.
+3. Open your browser and navigate to `http://localhost:5173`
 
+## Available Scripts
 
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
+## Project Structure
 
-
+```
+src/
+├── components/      # Reusable UI components
+├── constants/       # Application constants
+├── hooks/          # Custom React hooks
+├── models/         # Data models and services
+├── utils/          # Utility functions
+├── viewmodels/     # View model layer (MVVM)
+└── views/          # Page components
+```
